@@ -48,6 +48,22 @@ Aplicación web fullstack: React.js para el frontend y Python/Flask para el back
    npm run dev
    ```
 
+## Crear la base de datos PostgreSQL (opcional)
+Si no tienes la base de datos creada, puedes usar el script de PowerShell incluido:
+
+1. Abre PowerShell en la carpeta `backend`.
+2. Ejecuta:
+   ```powershell
+   .\create_db.ps1
+   ```
+3. Ingresa la contraseña de tu usuario de PostgreSQL cuando lo pida.
+4. Puedes personalizar el nombre de la base de datos, usuario, host y puerto:
+   ```powershell
+   .\create_db.ps1 -dbName "otro_nombre" -dbUser "otro_usuario" -dbHost "localhost" -dbPort 5432
+   ```
+
+Luego, asegúrate de que la variable `DATABASE_URL` en tu `.env` apunte a la base de datos creada.
+
 ## Notas
 - El backend corre por defecto en `http://localhost:5000`.
 - El frontend corre por defecto en `http://localhost:5173`.

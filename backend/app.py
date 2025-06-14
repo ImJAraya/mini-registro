@@ -27,6 +27,10 @@ def create_app():
         data = request.get_json()
         if not data or not data.get('email') or not data.get('password') or not data.get('full_name'):
             return jsonify({'error': 'Invalid input'}), 400
+        
+        existing_user = User.query.filter_by(email=data['email']).first()
+        if existing_user:
+            return jsonify({'error': 'User already exists'}), 409
 
         hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
         new_user = User(full_name=data.get('full_name'), email=data['email'], password=hashed_password)
@@ -40,6 +44,13 @@ def create_app():
     def get_users():
         users = User.query.all()
         return jsonify([user.serialize() for user in users]), 200   
+    
+    @app.route('/api/reset_db', methods=['POST'])
+    def reset_db():
+        db.drop_all()
+        db.create_all()
+        return jsonify({'message': 'Database reset successfully'}), 200
+
 
     return app
 

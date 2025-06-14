@@ -2,7 +2,7 @@ import { useState } from "react";
 import ListaUsuarios from "../components/ListaUsuarios";
 import "../styles/Home.css"; // Asegúrate de tener un archivo CSS para estilos
 
-function Registro() {
+function Home() {
     const [Trigger, setTrigger] = useState(false);
     const [form, setForm] = useState({
         nombre: "",
@@ -50,6 +50,11 @@ function Registro() {
             })
             if (response.status == 400) {
                 alert("Error en el registro. Por favor, verifica los datos ingresados.");
+                setLoading(false);
+                return;
+            }
+            if (response.status == 409) {
+                alert("El email ya está registrado. Por favor, utiliza otro email.");
                 setLoading(false);
                 return;
             }
@@ -135,4 +140,4 @@ function Registro() {
     );
 }
 
-export default Registro;
+export default Home;
